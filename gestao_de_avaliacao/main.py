@@ -1,7 +1,13 @@
 import csv
+import os
+from tabulate import tabulate
+def pausa():
+    pausar = input('Pressione ENTER para continuar...')
+
+def limpar():
+    os.system('cls')
 
 path = 'turma01.csv'
-
 i = 0
 while path[i] != '.':
     i += 1
@@ -23,19 +29,23 @@ try:
 
     while True:    
         print("""
-        
-        GESTÃO DE CLASSIFICAÇÕES
-            C - Converter classificações
-            E - Exportar classificações
-            T - Terminar 
+    GESTÃO DE CLASSIFICAÇÕES
+    C - Converter classificações
+    E - Exportar classificações
+    T - Terminar 
         """)
         option = input('Escolha uma opção: ')
+        limpar()
 
+        table = [
+            ['Nome','Avaliação','Qualitativa']
+        ]
         if option == 'C' or  option == 'c':
             i = 0
             list_grades = []
+            info = []
             convert_grades = ''
-            while (i < len(grades)):
+            while ( i< len(grades)):
                 if grades[i] < 90:
                     convert_grades = 'Insuficiente'
 
@@ -52,8 +62,14 @@ try:
                     convert_grades = 'Excelente'
 
                 list_grades.append(convert_grades)
-                print('O aluno ' + names[i] + ' tem avaliação: ' + list_grades[i])
+
+                info = [names[i],grades[i],list_grades[i]]
+                table.append(info)
                 i+=1
+
+            print(tabulate(table,headers="firstrow",tablefmt="pretty"))    
+            pausa()
+            limpar()
 
 
 
